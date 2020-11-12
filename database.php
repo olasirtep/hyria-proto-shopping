@@ -25,10 +25,10 @@ try {
 }
 
 /*
-*   Jos pyynnössä on mukava arvo nimellä 'vote', tallennetaan äänestys tietokantaan
+*   Jos pyynnössä on mukana arvo nimellä 'tuote', tallennetaan tuote tietokantaan
 */
 if (isset($_POST['tuote'])) {
-    // Haetaan äänestyksen valinta
+    // Haetaan tuotteen nimi
     $tuote = $_POST['tuote'];
     // Haetaan käyttäjän ip-osoite
     $ip = $_SERVER['REMOTE_ADDR'];
@@ -41,12 +41,12 @@ if (isset($_POST['tuote'])) {
     $sttm->execute(array($tuote, $ip));
 }
 
-// SQL-kysely, jolla haetaan eri vaihtoehtojen äänimäärät
+// SQL-kysely, jolla haetaan kauppalistan sisältö
 $sql = "SELECT tuote FROM kauppalista";
 
 // Luodaan tyhjä sanakirja
 $data = array();
-// Haetaan tietokannasta äänimäärät
+// Haetaan tietokannasta tuotteet
 foreach($conn->query($sql) as $row) {
     array_push($data, $row['tuote']);
 }
