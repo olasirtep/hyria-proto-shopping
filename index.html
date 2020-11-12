@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kauppalista</title>
+
+    <style>
+        main {
+            padding: 2em;
+            width: 500px;
+            margin: 2em auto;
+        }
+        #kauppalista {
+            border: 2px solid black;
+            border-radius:5px;
+            padding: 2em;
+            margin: 0 0 1em;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <main>
+
+    <ul id="kauppalista">
+        <!--TÄMÄ ON TYHJÄ KAUPPALISTA-->
+    </ul>
+
+    <input id="newItem" type="text" placeholder="Lisää uusi tuote listaan...">
+    <button onclick="addItem()">Lisää listaan</button>
+
+    </main>
+
+    <script>
+        var tuotteet  = []; // Lista johon tuotteet tallennetaan
+        var kauppalistaDOM = document.getElementById("kauppalista"); // Kauppalistan DOM-elementti
+
+        // Tämä koodi ajetaan kun sivu on täysin latautunut
+        /* Sama kuin jQueryn:
+        *   $(function() {
+        *        // koodia
+        *   });
+        */
+        window.onload = function () {
+            // Asetamme fokuksen tekstikenttään, jolloin käyttäjä voi heti sivun auettua alkaa kirjoittamaan
+            document.querySelector("input").focus();
+        }
+
+        // Tämä funktio ajetaan kun käyttäjä lisää uuden tuotteen
+        function addItem() {
+            let tuote = document.getElementById("newItem").value; // Haetaan teksikenttään kirjoitettu tuote
+            tuotteet.push(tuote); // Lisätään tuote listaan
+            document.querySelector("input").value = ""; // Tyhjennetään tekstikenttä
+            showList(); // Päivitetään web-sivulla näkyvä lista
+            document.querySelector("input").focus(); // Asetetaan tekstikenttä fokukseen, eli aktiiviseksi
+        }
+
+        // Funktio, joka tulostaa listan sisällön näkyville web-sivulle
+        function showList() {
+            kauppalistaDOM.innerHTML = ""; // Tyhjennetään vanha lista pois
+            // Käydään tuotteet-lista läpi for...of silmukalla
+            for (var tuote of tuotteet) {
+                var tuoterivi = document.createElement("li"); // Luodaan li-elementti
+                tuoterivi.innerHTML = tuote; // Asetetaan tuote luotuun li-elementtiin
+                kauppalistaDOM.appendChild(tuoterivi); // Lisätään luotu elementti kauppalista ul-elementtiin
+            }
+        }
+    </script>
+
+</body>
+</html>
