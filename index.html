@@ -48,12 +48,25 @@
         window.onload = function () {
             // Asetamme fokuksen tekstikenttään, jolloin käyttäjä voi heti sivun auettua alkaa kirjoittamaan
             document.querySelector("input").focus();
+
+            // Haetaan sivun latautuessa kauppalista tietokannasta
+            $.getJSON("database.php", function(result) {
+                tuotteet = result;
+                showList();
+            });
         }
 
         // Tämä funktio ajetaan kun käyttäjä lisää uuden tuotteen
         function addItem() {
             let tuote = document.getElementById("newItem").value; // Haetaan teksikenttään kirjoitettu tuote
             tuotteet.push(tuote); // Lisätään tuote listaan
+
+            // Tallennetaan uusi tuote tietokantaan
+            $.post("database.php", {tuotenimi: tuote}, function(result) {
+                tuotteet = result;
+                showList();
+            }, 'json');
+
             document.querySelector("input").value = ""; // Tyhjennetään tekstikenttä
             showList(); // Päivitetään web-sivulla näkyvä lista
             document.querySelector("input").focus(); // Asetetaan tekstikenttä fokukseen, eli aktiiviseksi

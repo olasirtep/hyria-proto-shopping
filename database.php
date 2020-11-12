@@ -27,9 +27,9 @@ try {
 /*
 *   Jos pyynnössä on mukana arvo nimellä 'tuote', tallennetaan tuote tietokantaan
 */
-if (isset($_POST['tuote'])) {
+if (isset($_POST['tuotenimi'])) {
     // Haetaan tuotteen nimi
-    $tuote = $_POST['tuote'];
+    $tuote = $_POST['tuotenimi'];
     // Haetaan käyttäjän ip-osoite
     $ip = $_SERVER['REMOTE_ADDR'];
 
